@@ -30,14 +30,15 @@ defmodule NucleotideCount do
     acc
   end
 
-  def histogram(
-        [nucleotide | strand],
-        acc \\ %{?A => 0, ?T => 0, ?C => 0, ?G => 0}
-      ) do
+  def histogram([nucleotide | strand], acc \\ empty_histogram()) do
     histogram(
       strand,
       Map.put(acc, nucleotide, acc[nucleotide] + 1)
     )
+  end
+
+  defp empty_histogram do
+    Map.new(@nucleotides, fn n -> {n, 0} end)
   end
 
 end
