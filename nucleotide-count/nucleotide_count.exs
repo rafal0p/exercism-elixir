@@ -26,12 +26,18 @@ defmodule NucleotideCount do
   %{?A => 4, ?T => 1, ?C => 0, ?G => 0}
   """
   @spec histogram([char]) :: map
-  def histogram(strand) do
-    %{
-      ?A => count(strand, ?A),
-      ?T => count(strand, ?T),
-      ?C => count(strand, ?C),
-      ?G => count(strand, ?G)
-    }
+  def histogram([], acc) do
+    acc
   end
+
+  def histogram(
+        [nucleotide | strand],
+        acc \\ %{?A => 0, ?T => 0, ?C => 0, ?G => 0}
+      ) do
+    histogram(
+      strand,
+      Map.put(acc, nucleotide, acc[nucleotide] + 1)
+    )
+  end
+
 end
