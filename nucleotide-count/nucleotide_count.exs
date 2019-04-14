@@ -26,19 +26,10 @@ defmodule NucleotideCount do
   %{?A => 4, ?T => 1, ?C => 0, ?G => 0}
   """
   @spec histogram([char]) :: map
-  def histogram([], acc) do
-    acc
-  end
-
-  def histogram([nucleotide | strand], acc \\ empty_histogram()) do
-    histogram(
-      strand,
-      Map.put(acc, nucleotide, acc[nucleotide] + 1)
-    )
-  end
-
-  defp empty_histogram do
-    Map.new(@nucleotides, fn n -> {n, 0} end)
+  def histogram(strand) do
+    for n <- @nucleotides, into: %{} do
+      {n, count(strand, n)}
+    end
   end
 
 end
