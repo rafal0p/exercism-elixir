@@ -11,27 +11,20 @@ defmodule Words do
 
   defp do_count(_, acc \\ %{}, word \\ "")
 
-  defp do_count([], acc, _) do
-    acc
-  end
-
-  defp do_count([" " | tail], acc, "") do
-    do_count(tail, acc, "")
-  end
-
-  defp do_count([" " | tail], acc, word) do
-    do_count(tail, Map.put(acc, word, Map.get(acc, word, 0) + 1), "")
-  end
-
-  defp do_count(["_" | tail], acc, word) do
-    do_count(tail, Map.put(acc, word, Map.get(acc, word, 0) + 1), "")
-  end
+  defp do_count([], acc, _), do: acc
 
   defp do_count([character | tail], acc, word) do
-    if word_creating?(character) do
-      do_count(tail, acc, word <> String.downcase(character))
-    else
-      do_count(tail, acc, word)
+    case {character, word} do
+      {" ", ""} ->
+        do_count(tail, acc, "")
+      {character, word} when character in [" ", "_"] ->
+        do_count(tail, Map.put(acc, word, Map.get(acc, word, 0) + 1), "")
+      {character, word} ->
+        if word_creating?(character) do
+          do_count(tail, acc, word <> String.downcase(character))
+        else
+          do_count(tail, acc, word)
+        end
     end
   end
 
