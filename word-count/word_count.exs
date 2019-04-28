@@ -29,14 +29,14 @@ defmodule Words do
   end
 
   defp word_creating?(character) do
-    isLetter(character) || isDigit(character) || character == "-"
+    letter?(character) || digit?(character) || character == "-"
   end
 
-  defp isDigit(s) do
+  defp digit?(s) do
     Enum.member?(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"], s)
   end
 
-  defp isLetter(s) do
+  defp letter?(s) do
     !(String.upcase(s) == String.downcase(s))
   end
 end
