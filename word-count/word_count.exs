@@ -18,7 +18,7 @@ defmodule Words do
       {" ", ""} ->
         do_count(tail, acc, "")
       {character, word} when character in [" ", "_"] ->
-        do_count(tail, Map.put(acc, word, Map.get(acc, word, 0) + 1), "")
+        do_count(tail, Map.update(acc, word, 1, &(&1 + 1)), "")
       {character, word} ->
         if word_creating?(character) do
           do_count(tail, acc, word <> String.downcase(character))
