@@ -6,7 +6,7 @@ defmodule Words do
   """
   @spec count(String.t()) :: map
   def count(sentence) do
-    Regex.split(~r/[ !&@$%^:,_]/, String.downcase(sentence))
+    Regex.split(~r/[^\p{L}\p{N}\-]/u, String.downcase(sentence))
     |> Enum.filter(fn word -> word != "" end)
     |> Enum.reduce(
          %{},
