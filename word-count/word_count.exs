@@ -6,7 +6,7 @@ defmodule Words do
   """
   @spec count(String.t()) :: map
   def count(sentence) do
-    Regex.split(charsExceptLettersNumbersAndDash(), String.downcase(sentence))
+    Regex.split(charsExceptAlphanumericAndDash(), String.downcase(sentence))
     |> Enum.filter(fn word -> word != "" end)
     |> Enum.reduce(
          %{},
@@ -14,7 +14,7 @@ defmodule Words do
        )
   end
 
-  defp charsExceptLettersNumbersAndDash do
-    ~r/[^\p{L}\p{N}\-]/u
+  defp charsExceptAlphanumericAndDash do
+    ~r/[^[:alnum:]-]/u
   end
 end
