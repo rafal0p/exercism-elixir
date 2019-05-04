@@ -1,4 +1,6 @@
 defmodule Words do
+  @charsExceptAlphanumericAndDash ~r/[^[:alnum:]-]/u
+
   @doc """
   Count the number of words in the sentence.
 
@@ -8,7 +10,7 @@ defmodule Words do
   def count(sentence) do
     sentence
     |> String.downcase()
-    |> String.split(charsExceptAlphanumericAndDash())
+    |> String.split(@charsExceptAlphanumericAndDash)
     |> Enum.filter(fn word -> word != "" end)
     |> Enum.reduce(
          %{},
@@ -16,7 +18,4 @@ defmodule Words do
        )
   end
 
-  defp charsExceptAlphanumericAndDash do
-    ~r/[^[:alnum:]-]/u
-  end
 end
