@@ -10,8 +10,7 @@ defmodule Words do
   def count(sentence) do
     sentence
     |> String.downcase()
-    |> String.split(@charsExceptAlphanumericAndDash)
-    |> Enum.filter(fn word -> word != "" end)
+    |> String.split(@charsExceptAlphanumericAndDash, trim: true)
     |> Enum.reduce(
          %{},
          fn word, acc -> Map.update(acc, word, 1, &(&1 + 1)) end
