@@ -1,5 +1,5 @@
 defmodule Words do
-  @charsExceptAlphanumericAndDash ~r/[^[:alnum:]-]/u
+  @chars_except_aplhanumeric_and_dash ~r/[^[:alnum:]-]/u
 
   @doc """
   Count the number of words in the sentence.
@@ -10,7 +10,7 @@ defmodule Words do
   def count(sentence) do
     sentence
     |> String.downcase()
-    |> String.split(@charsExceptAlphanumericAndDash, trim: true)
+    |> String.split(@chars_except_aplhanumeric_and_dash, trim: true)
     |> Enum.reduce(
          %{},
          fn word, acc -> Map.update(acc, word, 1, &(&1 + 1)) end
