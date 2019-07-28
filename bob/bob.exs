@@ -14,11 +14,11 @@ defmodule Bob do
   end
 
   defp at_least_one_letter(input) do
-    String.match?(input, ~r/\p{L}+/u)
+    String.downcase(input) != String.upcase(input)
   end
 
   defp question?(input) do
-    String.last(input) == "?"
+    String.ends_with?(input, "?")
   end
 
   defp silence?(input) do
